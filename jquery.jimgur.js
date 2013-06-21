@@ -4,7 +4,7 @@
       apiURL: "https://api.imgur.com/3/"
     }, opts),
     image = {
-      get: function() { },
+      get: function(dat) { },
       post: function(data) { },
       put: function(data) { },
       del: function() { }
@@ -20,7 +20,8 @@
       post: function(data) { },
       put: function(data) { },
       del: function() { }
-    }
+    };
+    return { image: this.image, comment: this.comment, album: this.album }
   };
 })(jQuery);
 // test comment
