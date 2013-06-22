@@ -24,4 +24,4 @@
     return { image: this.image, comment: this.comment, album: this.album }
   };
 })(jQuery);
-// test comment
+
