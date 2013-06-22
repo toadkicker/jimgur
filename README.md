@@ -7,13 +7,12 @@ A jQuery plugin for interacting with the imgur.com API version 3.
 Returns an object so you can do whatever you want with your
 user interface. Built using a publish/subscribe pattern.
 
-#TODO
+##TODO
 Check out the issue list and feel free to send in a pull request.
 
-#Examples
+##Examples
 
-Subscribe
-=========
+###Subscribe
 Subscribe takes a channel name, which is completely up to you what to call it. You can also use the same channel name and get an array.
 
 
@@ -26,8 +25,7 @@ The last parameter is a callback function.
 JqImgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YOUR_CLIENT_ID"}, function() { alert("ching!"); } );
 ```
 
-Fetch
-=====
+###Fetch
 
 Fetch the data from the API:
 
@@ -35,8 +33,7 @@ Fetch the data from the API:
 JqImgur.fetch("gevOKU7")
 ```
 
-Publish
-=======
+###Publish
 
 Execute your callback functions you subscribed to:
 
