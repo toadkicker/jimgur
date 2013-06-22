@@ -4,7 +4,7 @@
       apiURL: "https://api.imgur.com/3/"
     }, opts),
     image = {
-      get: function(dat) { },
+      get: function(data) { },
       post: function(data) { },
       put: function(data) { },
       del: function() { }
