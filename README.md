@@ -1,11 +1,9 @@
-jimgur
+JqImgur
 ======
 
 A jQuery plugin for interacting with the imgur.com API version 3.
 
-
-Returns an object so you can do whatever you want with your
-user interface. Built using a publish/subscribe pattern.
+Built using a publish/subscribe pattern.
 
 ##TODO
 Check out the issue list and feel free to send in a pull request.
@@ -30,7 +28,7 @@ JqImgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YO
 Fetch the data from the API:
 
 ```javascript
-JqImgur.fetch("gevOKU7")
+JqImgur.fetch("myChannelName")
 ```
 
 ###Publish
