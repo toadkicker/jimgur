@@ -48,10 +48,11 @@ Jimgur = (function() {
   var xhrhandler = function(request) {
 	  if (typeof request!==typeof {}) { throw "xhrhandler: no request data parsed"; }
 	  if (typeof request.url!=="string") { throw "xhrhandler: no url parsed"; }
+	  if (typeof request.type!=="string") { request.type = "GET"; }
 	  var x = (XMLHttpRequest)? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 	  var useEvent = false;
 	  if (typeof request.callback=="function") { useEvent = true; }
-	  x.open("GET", request.url, useEvent);
+	  x.open(request.type, request.url, useEvent);
 	  if (useEvent) { x.onreadystatechange = request.callback; }
 	  if (typeof request.beforeSend=="function") { try {request.beforeSend.call(this, x);} catch (e) {console.log(e);} }
 	  x.send();
