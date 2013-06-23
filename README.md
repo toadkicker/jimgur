@@ -38,3 +38,13 @@ Execute your callback functions you subscribed to:
 ```javascript
 JqImgur.publish("myChannelName")
 ```
+
+###Unsubscribe
+
+Remove all object in a channel.
+
+```javascript
+JqImgur.unsubscribe("myChannelName")
+```
+
+Returns false if not found.
