@@ -31,29 +31,63 @@
       </header>
       <section>
         <h1>
-<a name="jimgur" class="anchor" href="#jimgur"><span class="octicon octicon-link"></span></a>jimgur</h1>
+<a name="jqimgur" class="anchor" href="#jqimgur"><span class="octicon octicon-link"></span></a>JqImgur</h1>
 
 <p>A jQuery plugin for interacting with the imgur.com API version 3.</p>
 
-<h1>
-<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h1>
+<p>Built using a publish/subscribe pattern.</p>
 
-<p>$options = {
-  clientID: YOUR_CLIENT_ID,
-  model: "image", //if you want to retrieve account info
-  authType: "callback" || "anonymous"
-}</p>
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
 
-<h1>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h1>
+<p>Check out the issue list and feel free to send in a pull request.</p>
 
-<p>$.jimgur("account", $options)  - fetch your account information</p>
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<h3>
+<a name="subscribe" class="anchor" href="#subscribe"><span class="octicon octicon-link"></span></a>Subscribe</h3>
+
+<p>Subscribe takes a channel name, which is completely up to you what to call it. You can also use the same channel name and get an array.</p>
+
+<p>The second parameter is your ajax configuration parameters. </p>
+
+<p>The last parameter is a callback function.</p>
+
+<div class="highlight"><pre><span class="nx">JqImgur</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">"image"</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">"gevOKU7"</span><span class="p">,</span> <span class="nx">clientID</span><span class="o">:</span> <span class="s2">"YOUR_CLIENT_ID"</span><span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ching!"</span><span class="p">);</span> <span class="p">}</span> <span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="fetch" class="anchor" href="#fetch"><span class="octicon octicon-link"></span></a>Fetch</h3>
+
+<p>Fetch the data from the API:</p>
+
+<div class="highlight"><pre><span class="nx">JqImgur</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="publish" class="anchor" href="#publish"><span class="octicon octicon-link"></span></a>Publish</h3>
+
+<p>Execute your callback functions you subscribed to:</p>
+
+<div class="highlight"><pre><span class="nx">JqImgur</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="unsubscribe" class="anchor" href="#unsubscribe"><span class="octicon octicon-link"></span></a>Unsubscribe</h3>
+
+<p>Remove all object in a channel.</p>
+
+<div class="highlight"><pre><span class="nx">JqImgur</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">)</span>
+</pre></div>
+
+<p>Returns false if not found.</p>
       </section>
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-			
+		
   </body>
 </html>
