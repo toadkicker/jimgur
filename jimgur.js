@@ -35,11 +35,13 @@ Jimgur = (function() {
     for (var i = 0, l = channels[channel].length; i < l; i++) {
       var model = channels[channel][i].model;
       //TODO: drop in mediator and remove jQuery for native XHR calls.
-      r = $.ajax({
+      t = xhrhandler({
         url: "https://api.imgur.com/3/" + model.name + "/" + model.id,
         type: model.requestType,
         beforeSend: function(xhr){console.log(xhr); xhr.setRequestHeader('Authorization', 'Client-ID ' + model.clientID);},
       });
+      r = "";
+      if (t[0]) { r = t[1][2]; }
     }
     channels[channel].push({response: r})
     return channels[channel];
@@ -49,14 +51,19 @@ Jimgur = (function() {
 	  if (typeof request!==typeof {}) { throw "xhrhandler: no request data parsed"; }
 	  if (typeof request.url!=="string") { throw "xhrhandler: no url parsed"; }
 	  if (typeof request.type!=="string") { request.type = "GET"; }
-	  var x = (XMLHttpRequest)? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-	  var useEvent = false;
-	  if (typeof request.callback=="function") { useEvent = true; }
-	  x.open(request.type, request.url, useEvent);
-	  if (useEvent) { x.onreadystatechange = request.callback; }
-	  if (typeof request.beforeSend=="function") { try {request.beforeSend.call(this, x);} catch (e) {console.log(e);} }
-	  x.send();
-	  if (useEvent) { return [true]; } else { return [true, [x.status, x.getAllResponseHeaders(), x.responseText, x.responseXML]]; }
+	  try {
+		  var x = (XMLHttpRequest)? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		  var useEvent = false;
+		  if (typeof request.callback=="function") { useEvent = true; }
+		  x.open(request.type, request.url, useEvent);
+		  if (useEvent) { x.onreadystatechange = request.callback; }
+		  if (typeof request.beforeSend=="function") { try {request.beforeSend.call(this, x);} catch (e) {console.log(e);} }
+		  x.send();
+		  if (useEvent) { return [true]; } else { return [true, [x.status, x.getAllResponseHeaders(), x.responseText, x.responseXML]]; }
+	  } catch (e) {
+		  console.log("xhrhandler encountered an error: " + e);
+		  return [false];
+	  }
   };
 
   return {
