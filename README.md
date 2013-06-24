@@ -1,7 +1,7 @@
-JqImgur
+JImgur
 ======
 
-A jQuery plugin for interacting with the imgur.com API version 3.
+A javascript client for interacting with the imgur.com API version 3.
 
 Built using a publish/subscribe pattern.
 
@@ -20,7 +20,7 @@ The second parameter is your ajax configuration parameters.
 The last parameter is a callback function.
 
 ```javascript
-JqImgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YOUR_CLIENT_ID"}, function() { alert("ching!"); } );
+Jimgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YOUR_CLIENT_ID"}, function() { alert("ching!"); } );
 ```
 
 ###Fetch
@@ -28,7 +28,7 @@ JqImgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YO
 Fetch the data from the API:
 
 ```javascript
-JqImgur.fetch("myChannelName")
+Jimgur.fetch("myChannelName")
 ```
 
 ###Publish
@@ -36,7 +36,7 @@ JqImgur.fetch("myChannelName")
 Execute your callback functions you subscribed to:
 
 ```javascript
-JqImgur.publish("myChannelName")
+Jimgur.publish("myChannelName")
 ```
 
 ###Unsubscribe
@@ -44,7 +44,7 @@ JqImgur.publish("myChannelName")
 Remove all object in a channel.
 
 ```javascript
-JqImgur.unsubscribe("myChannelName")
+Jimgur.unsubscribe("myChannelName")
 ```
 
 Returns false if not found.
