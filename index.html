@@ -48,22 +48,43 @@
 <h3>
 <a name="subscribe" class="anchor" href="#subscribe"><span class="octicon octicon-link"></span></a>Subscribe</h3>
 
-<p>Subscribe takes a channel name, which is completely up to you what to call it. You can also use the same channel name and get an array.</p>
+<p>Subscribe takes a channel name, which is completely up to you what to call it.</p>
 
-<p>The second parameter is your ajax configuration parameters. </p>
+<div class="highlight"><pre><span class="s2">"myChannelName"</span>
+</pre></div>
 
-<p>The last parameter is a callback function.</p>
+<p>The second parameter is ajax configuration parameters. These are required fields.</p>
 
-<div class="highlight"><pre><span class="nx">Jimgur</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">"image"</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">"gevOKU7"</span><span class="p">,</span> <span class="nx">clientID</span><span class="o">:</span> <span class="s2">"YOUR_CLIENT_ID"</span><span class="p">},</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ching!"</span><span class="p">);</span> <span class="p">}</span> <span class="p">);</span>
+<div class="highlight"><pre><span class="p">{</span> <span class="nx">clientID</span><span class="o">:</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">"image"</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">"aWabySL"</span> <span class="p">}</span>
+</pre></div>
+
+<p>The last parameter is a callback function, typically you would use this to manipulate the page.</p>
+
+<div class="highlight"><pre><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">//what do you want to do with the data once you get it?</span>
+            <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">channels</span><span class="p">[</span><span class="s2">"image"</span><span class="p">][</span><span class="s2">"response"</span><span class="p">])</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">"#example1"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">'&lt;img src='</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">link</span> <span class="o">+</span> <span class="s1">' /&gt;'</span><span class="p">);</span> <span class="p">}</span>
+</pre></div>
+
+<p>Put it all together:</p>
+
+<div class="highlight"><pre><span class="nx">Jimgur</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span>
+          <span class="s2">"myChannelName"</span><span class="p">,</span> <span class="c1">//give it a name to refer to your calls</span>
+          <span class="p">{</span> <span class="nx">clientID</span><span class="o">:</span> <span class="s1">'YOUR_CLIENT_ID'</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">"image"</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s2">"aWabySL"</span> <span class="p">},</span> <span class="c1">//object literal that says what you want to get from imgur</span>
+          <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">//what do you want to do with the data once you get it?</span>
+            <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">channels</span><span class="p">[</span><span class="s2">"image"</span><span class="p">][</span><span class="s2">"response"</span><span class="p">])</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">"#example1"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">'&lt;img src='</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">link</span> <span class="o">+</span> <span class="s1">' /&gt;'</span><span class="p">);</span> <span class="p">}</span>
+        <span class="p">);</span>
 </pre></div>
 
 <h3>
 <a name="fetch" class="anchor" href="#fetch"><span class="octicon octicon-link"></span></a>Fetch</h3>
 
-<p>Fetch the data from the API:</p>
+<p>Refresh the data from the API:</p>
 
 <div class="highlight"><pre><span class="nx">Jimgur</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">)</span>
 </pre></div>
+
+<p>Each call to this replaces imgur's response in the channel object.</p>
 
 <h3>
 <a name="publish" class="anchor" href="#publish"><span class="octicon octicon-link"></span></a>Publish</h3>
@@ -76,7 +97,7 @@
 <h3>
 <a name="unsubscribe" class="anchor" href="#unsubscribe"><span class="octicon octicon-link"></span></a>Unsubscribe</h3>
 
-<p>Remove all object in a channel.</p>
+<p>Remove all objects in a channel.</p>
 
 <div class="highlight"><pre><span class="nx">Jimgur</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s2">"myChannelName"</span><span class="p">)</span>
 </pre></div>
