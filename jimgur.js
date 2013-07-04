@@ -1,12 +1,27 @@
+/*Jimgur - the Javascript API client for imgur.com.
+ *
+ *Examples:
+ * Create a handler for your imgur object:
+ * clientID
+ *
+ * 
+ */
 Jimgur = (function() {
   var channels = {};
 
   var subscribe = function(name, model, fn){
-      if (!channels[name]){
-        channels[name] = [];
+      if(typeof(name) == "string" && typeof(model) == "object" && typeof(fn) == "function")
+      {
+        if (!channels[name]){
+          channels[name] = [];
+        }
+        //replace if called again
+        channels[name] = { context: this, model: model, callback: fn };
+      } else {
+        throw "Invalid parameters for subscribing."
       }
-      channels[name].push( { context: this, model: model, callback: fn } );
       return this;
+
   };
 
   var unsubscribe = function(name) {
@@ -14,37 +29,34 @@ Jimgur = (function() {
       return false;
     }
     for (var i = 0, l = channels[name].length; i < l; i++) {
+      console.log(channels[name][i] + " is deleted")
       delete channels[name][i]
     }
   };
 
   var publish = function(name){
       var args;
-      if (!channels[name]){
-        return false;
+      var response = JSON.parse(channels[name]["response"]);
+      if (channels[name].hasOwnProperty("response")){
+        args = Array.prototype.slice.call(arguments, 1);
+        var subscription = channels[name];
+        subscription.callback.apply(subscription.context, args);
+      } else {
+        throw "No response data from the server. Try Jimgur.fetch('channelname') first?"
       }
-      args = Array.prototype.slice.call(arguments, 1);
-      for (var i = 0, l = channels[name].length; i < l; i++) {
-          var subscription = channels[name][i];
-          subscription.callback.apply(subscription.context, args);
-      }
-      return this;
+      return channels[name];
   };
 
-  var xhr = function(channel) {
-    for (var i = 0, l = channels[channel].length; i < l; i++) {
-      var model = channels[channel][i].model;
-      //TODO: drop in mediator and remove jQuery for native XHR calls.
-      t = xhrhandler({
-        url: "https://api.imgur.com/3/" + model.name + "/" + model.id,
-        type: model.requestType,
-        beforeSend: function(xhr){console.log(xhr); xhr.setRequestHeader('Authorization', 'Client-ID ' + model.clientID);},
-      });
-      r = "";
-      if (t[0]) { r = t[1][2]; }
-    }
-    channels[channel].push({response: r})
-    return channels[channel];
+  var xhr = function(name) {
+    var model = channels[name]["model"]
+    r = "";
+    t = xhrhandler({
+      url: "https://api.imgur.com/3/" + model.name + "/" + model.id,
+      type: model.requestType,
+      beforeSend: function(xhr){console.log(xhr); xhr.setRequestHeader('Authorization', 'Client-ID ' + model.clientID);},
+    });
+    if (t[0]) { r = t[1][2]; }
+    channels[name].response = r;
   }
   
   var xhrhandler = function(request) {
@@ -71,6 +83,7 @@ Jimgur = (function() {
       publish: publish,
       subscribe: subscribe,
       unsubscribe: unsubscribe,
+      channels: channels,
       installTo: function( obj ){
                    obj.subscribe = subscribe;
                    obj.unsubscribe = unsubscribe;

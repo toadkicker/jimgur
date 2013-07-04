@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Page for jimgur</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="jimgur.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>The Imgur.com API plugin for jQuery</h1>
+      <p>This is a plugin to help you interact with imgur through common functions. 
+      It is not intended to be yet another gallery plugin. You can use any gallery,
+      html, css, etc you like. The goal is to provide a skeleton for calls with the 
+      imgur.com api and return its responses.</p>
+      
+      <h3>Examples</h3>
+      <div id="example1"></div>
+      <script>
+        Jimgur.subscribe(
+          "image",
+          { clientID: '6abcdbc1556e9c2', name: "image", id: "aWabySL" }, 
+          function() { 
+            var response = JSON.parse(this.channels["image"]["response"])
+            $("#example1").html('<img src=' + response.data.link + ' />'); }
+        );
+        Jimgur.fetch("image");
+        Jimgur.publish("image")
+      </script>
+    </div>
+  
+  </body>
+</html>
