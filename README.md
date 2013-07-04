@@ -20,12 +20,18 @@ The second parameter is your ajax configuration parameters.
 The last parameter is a callback function.
 
 ```javascript
-Jimgur.subscribe("myChannelName", { name: "image", id: "gevOKU7", clientID: "YOUR_CLIENT_ID"}, function() { alert("ching!"); } );
+Jimgur.subscribe(
+          "myChannelName", //give it a name to refer to your calls
+          { clientID: 'YOUR_CLIENT_ID', name: "image", id: "aWabySL" }, //object literal that says what you want to get from imgur
+          function() { //what do you want to do with the data once you get it?
+            var response = JSON.parse(this.channels["image"]["response"])
+            $("#example1").html('<img src=' + response.data.link + ' />'); }
+        );
 ```
 
 ###Fetch
 
-Fetch the data from the API:
+Refresh the data from the API:
 
 ```javascript
 Jimgur.fetch("myChannelName")
@@ -41,7 +47,7 @@ Jimgur.publish("myChannelName")
 
 ###Unsubscribe
 
-Remove all object in a channel.
+Remove all objects in a channel.
 
 ```javascript
 Jimgur.unsubscribe("myChannelName")
