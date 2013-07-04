@@ -11,13 +11,19 @@ Check out the issue list and feel free to send in a pull request.
 ##Examples
 
 ###Subscribe
-Subscribe takes a channel name, which is completely up to you what to call it. You can also use the same channel name and get an array.
+Subscribe takes a channel name, which is completely up to you what to call it.
+```
+"myChannelName"
+```
 
 
-The second parameter is your ajax configuration parameters. 
+The second parameter is ajax configuration parameters. These are required fields.
+```
+{ clientID: 'YOUR_CLIENT_ID', name: "image", id: "aWabySL" }
+```
 
 
-The last parameter is a callback function.
+The last parameter is a callback function, typically you would use this to manipulate the page.
 
 ```javascript
 Jimgur.subscribe(
@@ -36,6 +42,8 @@ Refresh the data from the API:
 ```javascript
 Jimgur.fetch("myChannelName")
 ```
+
+Each call to this replaces imgur's response in the channel object.
 
 ###Publish
 
