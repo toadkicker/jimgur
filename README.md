@@ -12,19 +12,25 @@ Check out the issue list and feel free to send in a pull request.
 
 ###Subscribe
 Subscribe takes a channel name, which is completely up to you what to call it.
-```
+```javascript
 "myChannelName"
 ```
 
 
 The second parameter is ajax configuration parameters. These are required fields.
-```
+```javascript
 { clientID: 'YOUR_CLIENT_ID', name: "image", id: "aWabySL" }
 ```
 
 
 The last parameter is a callback function, typically you would use this to manipulate the page.
+```javascript
+function() { //what do you want to do with the data once you get it?
+            var response = JSON.parse(this.channels["image"]["response"])
+            $("#example1").html('<img src=' + response.data.link + ' />'); }
+```
 
+Put it all together:
 ```javascript
 Jimgur.subscribe(
           "myChannelName", //give it a name to refer to your calls
