@@ -49,6 +49,7 @@ Jimgur = (function() {
 
   var xhr = function(name) {
     var model = channels[name]["model"]
+    if (typeof xhrhandler!="function"||typeof Jimgur.fetcher=="function") { xhrhandler = Jimgur.fetcher; }
     r = "";
     t = xhrhandler({
       url: "https://api.imgur.com/3/" + model.name + "/" + model.id,
@@ -57,7 +58,7 @@ Jimgur = (function() {
     });
     if (t[0]) { r = t[1][2]; }
     channels[name].response = r;
-  }
+  };
   
   var xhrhandler = function(request) {
 	  if (typeof request!==typeof {}) { throw "xhrhandler: no request data parsed"; }
@@ -65,6 +66,7 @@ Jimgur = (function() {
 	  if (typeof request.type!=="string") { request.type = "GET"; }
 	  try {
 		  var x = (XMLHttpRequest)? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		  xhrhandler.x = x;
 		  var useEvent = false;
 		  if (typeof request.callback=="function") { useEvent = true; }
 		  x.open(request.type, request.url, useEvent);
@@ -80,6 +82,7 @@ Jimgur = (function() {
 
   return {
       fetch: xhr,
+      fetcher: xhrhandler,
       publish: publish,
       subscribe: subscribe,
       unsubscribe: unsubscribe,
