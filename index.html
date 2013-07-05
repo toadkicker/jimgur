@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="javascripts/scale.fix.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="jimgur.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -75,6 +77,21 @@
             <span class="nx">$</span><span class="p">(</span><span class="s2">"#example1"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">'&lt;img src='</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">link</span> <span class="o">+</span> <span class="s1">' /&gt;'</span><span class="p">);</span> <span class="p">}</span>
         <span class="p">);</span>
 </pre></div>
+<h3>Example Result:</h3>
+<div id="example1"></div>
+<script>
+Jimgur.subscribe(
+          "image", //give it a name to refer to your calls
+          { clientID: '6abcdbc1556e9c2', name: "image", id: "i0lRRCz" }, //object literal that says what you want to get from imgur
+          function() { //what do you want to do with the data once you get it?
+            var response = JSON.parse(this.channels["image"]["response"])
+            $("#example1").html('<img src=' + response.data.link + ' />'); }
+            );
+
+Jimgur.fetch("image");
+Jimgur.publish("image");
+
+</script>
 
 <h3>
 <a name="fetch" class="anchor" href="#fetch"><span class="octicon octicon-link"></span></a>Fetch</h3>
